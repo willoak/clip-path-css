@@ -1,46 +1,61 @@
 let link = document.getElementById("link");
-        let section = document.getElementById("section");
-        let tagHtml = document.documentElement; //pegando o elemento raiz - <HTML>
+let section = document.getElementById("section");
+let tagHtml = document.documentElement; //pegando o elemento raiz - <HTML>
+const loading = document.querySelector('[loading]');
 
-        tagHtml.addEventListener("mousemove", e => {
-            tagHtml.style.setProperty("--x", e.clientX + "px");
-            tagHtml.style.setProperty("--y", e.clientY + "px");
-        });
-        
-        link.addEventListener("click", function(e){
-            anima();
-        });
+tagHtml.addEventListener("mousemove", e => {
+    tagHtml.style.setProperty("--x", e.clientX + "px");
+    tagHtml.style.setProperty("--y", e.clientY + "px");
+});
 
-        function anima () {
-            let i = 10;
-            let set = setInterval( () => {
-                i++;
-                tagHtml.style.setProperty("--c", i + "%");
-                if(i == 200) {
-                    clearInterval(set);
-                    init();
-                }
-            }, 10);
+link.addEventListener("click", function(e){
+    anima();
+});
+
+function anima () {
+    let i = 10;
+    let set = setInterval( () => {
+        i++;
+        tagHtml.style.setProperty("--c", i + "%");
+        if(i == 300) {
+            loading.style.display = "flex"
+            clearInterval(set);
+            init();
         }
+    }, 20);
+}
 
-        function gerarNumeroAleatorio (numero) {
-            return Math.floor( Math.random() * numero );
-        }
-        
-        function alterarBackground(){
-            let imagens = [
-                "https://i.pinimg.com/originals/3b/8a/d2/3b8ad2c7b1be2caf24321c852103598a.jpg",
-                "https://images.pexels.com/photos/1705252/pexels-photo-1705252.jpeg"
-            ];
-            section.style.backgroundImage = `url(${imagens[gerarNumeroAleatorio(2)]})`
-        }
+function gerarNumeroAleatorio (numero) {
+    return Math.floor( Math.random() * numero );
+}
 
-        function init(){
-            //mostrando aleatoriamente a bolinha
-            link.style.top = `${gerarNumeroAleatorio(95)}%`;
-            link.style.left = `${gerarNumeroAleatorio(95)}%`;
-            tagHtml.style.setProperty("--c", 8 + "%");
-            alterarBackground();
-        }
+function alterarBackground(){
+    let imagens = [
+        "imagens/pexels-belle-co-847393.jpg",
+        "imagens/pexels-godisable-jacob-871495.jpg",
+        "imagens/pexels-pixabay-247298.jpg",
+        "imagens/pexels-pixabay-289225.jpg",
+        "imagens/pexels-veeterzy-39811.jpg",
+        "imagens/pexels-pixabay-206434.jpg",
+        "imagens/pexels-tú-nguyễn-1545590.jpg",
+    ];
 
-        init();
+    section.style.backgroundImage = `url(${imagens[gerarNumeroAleatorio(imagens.length)]})`
+}
+
+function loadingBox(){
+    let set = setInterval( () => {
+        loading.style.display = 'none';
+    }, 2000);
+}
+
+function init(){
+    loadingBox();
+    //mostrando aleatoriamente a bolinha
+    link.style.top = `${gerarNumeroAleatorio(95)}%`;
+    link.style.left = `${gerarNumeroAleatorio(95)}%`;
+    tagHtml.style.setProperty("--c", 8 + "%");
+    alterarBackground();
+}
+
+init();
